@@ -198,6 +198,16 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+    // ── GA4 Event: Form Submit (Lead) ──
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'form_submit',
+      'event_category': 'lead',
+      'event_label': service,
+      'car_model': car,
+      'phone': phone
+    });
+
     // Clear form
     if (nameInput)    nameInput.value    = '';
     if (phoneInput)   phoneInput.value   = '';
@@ -221,6 +231,48 @@ document.addEventListener('DOMContentLoaded', function () {
         window.scrollTo({ top: top, behavior: 'smooth' });
       }
     });
+  });
+
+  /* ----------------------------------------------------------
+     GA4 EVENTS – Call & WhatsApp Click Tracking
+  ---------------------------------------------------------- */
+  // Track all Call button clicks
+  document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'call_click',
+        'event_category': 'engagement',
+        'event_label': 'phone_call',
+        'phone_number': '8925737773'
+      });
+    });
+  });
+
+  // Track all WhatsApp button clicks
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'whatsapp_click',
+        'event_category': 'engagement',
+        'event_label': 'whatsapp_message'
+      });
+    });
+  });
+
+  // Track Book Appointment button clicks
+  document.querySelectorAll('.btn-primary').forEach(function (el) {
+    if (el.textContent.trim().toLowerCase().includes('book your appointment')) {
+      el.addEventListener('click', function () {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'book_appointment_click',
+          'event_category': 'engagement',
+          'event_label': 'book_appointment'
+        });
+      });
+    }
   });
 
   /* ----------------------------------------------------------
