@@ -377,12 +377,11 @@ ul {
 
 /* Hero Right – Form */
 .hero-form-wrap {
-  background: var(--white);
-  padding: 36px 32px;
+  background: transparent;
+  padding: 36px 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border-radius: 4px;
 }
 
 .form-input {
@@ -508,22 +507,17 @@ ul {
 
 .gallery-slider-wrap {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0;
   overflow: hidden;
 }
 
 .gallery-track {
   display: flex;
   gap: 20px;
-  overflow: hidden;
-  flex: 1;
-  scroll-behavior: smooth;
+  transition: transform 0.4s ease;
 }
 
 .gallery-slide {
-  flex: 0 0 calc(33.333% - 14px);
+  flex: 0 0 calc((100% - 40px) / 3);
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--gray-light);
@@ -541,7 +535,9 @@ ul {
 }
 
 .slider-btn {
-  flex-shrink: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 48px;
   height: 48px;
   background: var(--white);
@@ -556,6 +552,7 @@ ul {
   color: var(--black);
   transition: background var(--transition), color var(--transition), border-color var(--transition);
   z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .slider-btn:hover {
@@ -564,8 +561,8 @@ ul {
   border-color: var(--red);
 }
 
-.slider-prev { margin-right: 16px; }
-.slider-next { margin-left: 16px; }
+.slider-prev { left: 12px; }
+.slider-next { right: 12px; }
 
 /* ============================================================
    SECTION 4 – SERVICES
@@ -782,19 +779,25 @@ ul {
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--off-white);
-  transition: transform var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .why-card:hover {
   transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
 }
 
 .why-icon-wrap {
-  background: var(--gradient);
-  padding: 48px 32px;
+  background: none;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .why-icon-wrap svg {
@@ -803,9 +806,10 @@ ul {
 }
 
 .why-icon-img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .why-label {
@@ -970,6 +974,40 @@ ul {
 }
 
 /* ============================================================
+   THANK YOU PAGE
+============================================================ */
+.thankyou-section {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thankyou-content {
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 600px;
+}
+
+.thankyou-heading {
+  font-family: var(--font-primary);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 16px;
+}
+
+.thankyou-text {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--gray-text);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* ============================================================
    FOOTER
 ============================================================ */
 .footer {
@@ -1001,23 +1039,48 @@ ul {
   font-weight: 600;
 }
 
+.profitcast-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.profitcast-link:hover {
+  color: var(--white);
+}
+
 /* ============================================================
-   FLOATING WHATSAPP BUTTON
+   FLOATING BUTTONS – Call (Left) & WhatsApp (Right)
 ============================================================ */
+.floating-call,
 .floating-whatsapp {
   position: fixed;
   bottom: 28px;
-  right: 28px;
   z-index: 999;
   width: 56px;
   height: 56px;
-  background: var(--gradient);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(255,0,0,0.35);
   transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.floating-call {
+  left: 28px;
+  background: var(--gradient);
+  box-shadow: 0 4px 20px rgba(255,0,0,0.35);
+}
+
+.floating-call:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255,0,0,0.45);
+}
+
+.floating-whatsapp {
+  right: 28px;
+  background: var(--gradient);
+  box-shadow: 0 4px 20px rgba(255,0,0,0.35);
 }
 
 .floating-whatsapp:hover {
@@ -1067,7 +1130,7 @@ ul {
   }
 
   .gallery-slide {
-    flex: 0 0 calc(50% - 10px);
+    flex: 0 0 calc((100% - 20px) / 2);
   }
 }
 
@@ -1079,7 +1142,17 @@ ul {
 
   .nav-links { display: none; }
   .nav-actions { display: none; }
-  .nav-hamburger { display: flex; }
+  .nav-hamburger { display: none; }
+
+  .nav-container {
+    justify-content: center;
+  }
+
+  .nav-logo {
+    flex-shrink: unset;
+  }
+
+  .mobile-menu { display: none !important; }
 
   .section-inner { padding: 0 20px; }
 
@@ -1106,7 +1179,7 @@ ul {
   }
 
   .gallery-slide {
-    flex: 0 0 calc(80% - 10px);
+    flex: 0 0 100%;
   }
 
   .services-grid {
@@ -1236,11 +1309,8 @@ ul {
     font-size: 1.4rem;
   }
 
-  .slider-prev { margin-right: 8px; }
-  .slider-next { margin-left: 8px; }
-
   .gallery-slide {
-    flex: 0 0 calc(90% - 10px);
+    flex: 0 0 100%;
   }
 
   .services-grid {
@@ -1283,12 +1353,7 @@ ul {
     padding: 12px 0;
   }
 
-  .why-icon-wrap {
-    padding: 36px 24px;
-  }
-
-  .why-icon-wrap svg,
-  .why-icon-img {
+  .why-icon-wrap svg {
     width: 64px;
     height: 64px;
   }
@@ -1314,11 +1379,24 @@ ul {
   .section-faq { padding: 60px 0; }
   .section-keywords { padding: 48px 0; }
 
+  .floating-call,
   .floating-whatsapp {
     bottom: 20px;
-    right: 20px;
     width: 50px;
     height: 50px;
+  }
+
+  .floating-call {
+    left: 20px;
+  }
+
+  .floating-call svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .floating-whatsapp {
+    right: 20px;
   }
 
   .floating-whatsapp svg {
