@@ -95,12 +95,39 @@
       document.getElementById('mobileMenu').classList.toggle('open');
     });
 
-    // ── GA4 Conversion Event: Thank You Page (Lead Conversion) ──
+    /* ──────────────────────────────────────────────────────
+       CONVERSION 3: Form Submission
+       ──────────────────────────────────────────────────────
+       This fires ONLY when the thank you page loads,
+       meaning the user has successfully submitted the form.
+       This is the most accurate way to track form leads —
+       no false positives from validation failures.
+    ────────────────────────────────────────────────────── */
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-      'event': 'generate_lead',
-      'event_category': 'form',
-      'event_label': 'thank_you_page'
+      'event': 'form_submission'
+    });
+
+    /* ── WhatsApp & Call tracking on thank you page too ── */
+    document.querySelectorAll('a[href*="wa.me"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'whatsapp_click',
+          'button_location': el.classList.contains('floating-whatsapp') ? 'floating' :
+                             el.classList.contains('btn-whatsapp-nav') ? 'navbar' : 'inline'
+        });
+      });
+    });
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'call_click',
+          'button_location': el.classList.contains('floating-call') ? 'floating' : 'other'
+        });
+      });
     });
   </script>
 </body>

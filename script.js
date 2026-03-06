@@ -198,16 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // ── GA4 Event: Form Submit (Lead) ──
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      'event': 'form_submit',
-      'event_category': 'lead',
-      'event_label': service,
-      'car_model': car,
-      'phone': phone
-    });
-
     // Clear form
     if (nameInput)    nameInput.value    = '';
     if (phoneInput)   phoneInput.value   = '';
@@ -234,45 +224,46 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ----------------------------------------------------------
-     GA4 EVENTS – Call & WhatsApp Click Tracking
+     GA4 CONVERSION EVENTS
+     ─────────────────────
+     3 Conversion Events tracked across the landing page:
+       1. whatsapp_click  → All WhatsApp buttons (navbar, floating, any)
+       2. call_click      → All Call buttons (Call Now, floating call)
+       3. form_submission → Fires ONLY on thankyou.html page load
+     ─────────────────────
+     These events push to dataLayer for GTM to pick up.
+     In GTM: Create Custom Event triggers matching these names.
+     In GA4: Mark these as Conversions.
+     In Google Ads: Import these GA4 conversions.
   ---------------------------------------------------------- */
-  // Track all Call button clicks
-  document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        'event': 'call_click',
-        'event_category': 'engagement',
-        'event_label': 'phone_call',
-        'phone_number': '8925737773'
-      });
-    });
-  });
 
-  // Track all WhatsApp button clicks
+  // ── CONVERSION 1: WhatsApp Click ──
+  // Groups ALL WhatsApp buttons into one single conversion event
   document.querySelectorAll('a[href*="wa.me"]').forEach(function (el) {
     el.addEventListener('click', function () {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'whatsapp_click',
-        'event_category': 'engagement',
-        'event_label': 'whatsapp_message'
+        'button_location': el.classList.contains('floating-whatsapp') ? 'floating' :
+                           el.classList.contains('btn-whatsapp-nav') ? 'navbar' : 'inline'
       });
     });
   });
 
-  // Track Book Appointment button clicks
-  document.querySelectorAll('.btn-primary').forEach(function (el) {
-    if (el.textContent.trim().toLowerCase().includes('book your appointment')) {
-      el.addEventListener('click', function () {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          'event': 'book_appointment_click',
-          'event_category': 'engagement',
-          'event_label': 'book_appointment'
-        });
+  // ── CONVERSION 2: Call Click ──
+  // Groups ALL Call buttons into one single conversion event
+  document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'call_click',
+        'button_location': el.classList.contains('floating-call') ? 'floating' :
+                           el.closest('.section-services') ? 'services' :
+                           el.closest('.section-cta-banner') ? 'cta_banner' :
+                           el.closest('.section-feature') ? 'ppf_section' :
+                           el.closest('.location-btns') ? 'location' : 'other'
       });
-    }
+    });
   });
 
   /* ----------------------------------------------------------
