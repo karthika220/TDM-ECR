@@ -941,32 +941,36 @@ ul {
 /* ============================================================
    SECTION 11 – INSTAGRAM FEED
 ============================================================ */
-.section-instagram {
-  padding: 80px 0;
-  background: var(--off-white);
+.instagram-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.instagram-section h2 {
+  font-size: 2rem;
+  margin-bottom: 32px;
 }
 
 .instagram-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.instagram-post {
-  min-width: 0;
-  overflow: hidden;
+.instagram-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 25px;
+  background: #E1306C;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
-.instagram-post .instagram-media {
-  margin: 0 auto !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
-  width: 100% !important;
-}
-
-.instagram-cta {
-  text-align: center;
+.instagram-btn:hover {
+  background: #c1215c;
 }
 
 /* ============================================================
@@ -1282,8 +1286,6 @@ ul {
   .instagram-grid {
     grid-template-columns: 1fr;
     gap: 16px;
-    max-width: 480px;
-    margin: 0 auto 40px;
   }
 
   .video-placeholder .play-icon {
@@ -1420,7 +1422,7 @@ ul {
   .section-why { padding: 60px 0; }
   .section-about-text { padding: 60px 0; }
   .section-faq { padding: 60px 0; }
-  .section-instagram { padding: 60px 0; }
+  .instagram-section { padding: 60px 20px; }
   .section-keywords { padding: 48px 0; }
 
   .floating-call,
