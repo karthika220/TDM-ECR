@@ -959,14 +959,23 @@ ul {
   margin: auto;
 }
 
-.instagram-grid img {
-  width: 100%;
+.instagram-grid a {
+  display: block;
+  overflow: hidden;
   border-radius: 8px;
-  transition: 0.3s;
 }
 
-.instagram-grid img:hover {
-  transform: scale(1.05);
+.instagram-grid img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s;
+  display: block;
+}
+
+.instagram-grid a:hover img {
+  transform: scale(1.08);
 }
 
 .instagram-btn {
