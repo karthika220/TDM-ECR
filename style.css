@@ -942,8 +942,8 @@ ul {
    SECTION 11 – INSTAGRAM FEED
 ============================================================ */
 .instagram-section {
-  text-align: center;
   padding: 60px 20px;
+  text-align: center;
 }
 
 .instagram-section h2 {
@@ -959,6 +959,16 @@ ul {
   margin: auto;
 }
 
+.instagram-grid img {
+  width: 100%;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.instagram-grid img:hover {
+  transform: scale(1.05);
+}
+
 .instagram-btn {
   display: inline-block;
   margin-top: 30px;
@@ -971,6 +981,18 @@ ul {
 
 .instagram-btn:hover {
   background: #c1215c;
+}
+
+@media (max-width: 900px) {
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .instagram-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ============================================================
@@ -1168,11 +1190,8 @@ ul {
     flex: 0 0 calc((100% - 20px) / 2);
   }
 
-  .instagram-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
 }
+
 
 /* ============================================================
    RESPONSIVE – MOBILE LANDSCAPE / SMALL TABLET (max-width: 768px)
@@ -1281,11 +1300,6 @@ ul {
 
   .faq-a p {
     font-size: 0.85rem;
-  }
-
-  .instagram-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
 
   .video-placeholder .play-icon {
